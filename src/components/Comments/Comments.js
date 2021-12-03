@@ -3,13 +3,10 @@ import React, { useContext, useEffect } from "react";
 import { commentsContext } from "../../contexts/CommentsContext";
 import "./Comments.css";
 import ClearIcon from "@material-ui/icons/Clear";
-import { useParams } from "react-router";
 
 const Comments = () => {
   const { comments, fetchComments, deleteComment } =
     useContext(commentsContext);
-  // const { id } = useParams();
-  // console.log(id, "comment id");
 
   useEffect(() => {
     fetchComments();
@@ -23,7 +20,8 @@ const Comments = () => {
       {comments && comments.length > 0
         ? comments.map((comment) => (
             <Grid container>
-              <Grid item md={6}>
+              {/* <Grid item md={5} sm={10}></Grid> */}
+              <Grid item md={6} sm={10}>
                 <Card key={comment.id} className="card">
                   <CardContent>
                     <h4>{comment.user}</h4>

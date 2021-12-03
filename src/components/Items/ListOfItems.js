@@ -26,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
 const ListOfItems = ({ products }) => {
   const classes = useStyles();
 
+  const fav = JSON.parse(localStorage.getItem('fav')) ?? false;
+
   return (
     <>
       <div style={{ alignItems: "center", paddingTop: "30px" }}>
@@ -54,7 +56,7 @@ const ListOfItems = ({ products }) => {
         <Grid container spacing={3}>
           {products.map((product) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
-              <ItemCards product={product} />
+              <ItemCards product={product} fav={fav} />
             </Grid>
           ))}
         </Grid>

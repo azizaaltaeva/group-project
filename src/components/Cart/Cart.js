@@ -11,26 +11,21 @@ import { IconButton } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { makeStyles } from "@material-ui/core/styles";
 import MyLink from "../../shared/MyLink";
+import { blueGrey } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
-  table: {
-
-    [theme.breakpoints.down("md")]: {
-      width: "300px",
-    },
-    [theme.breakpoints.down("sm")]: {
-      width: "300px",
-    },
-  },
   paper: {
+    marginBottom: '20px',
+    [theme.breakpoints.down("xs")]: {
+      width: "330px",
+    },
     [theme.breakpoints.down("sm")]: {
-      width: "300px",
+      width: "420px",
     },
     [theme.breakpoints.down("md")]: {
-      width: "350px",
+      width: "600px",
     },
   },
-
   title: {
     [theme.breakpoints.down("sm")]: {
       fontSize: "10px",
@@ -39,9 +34,8 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "30px",
     },
   },
-
   paper1: {
-    marginLeft: "50px",
+    marginLeft: "20px",
     marginTop: "100px",
     [theme.breakpoints.down("sm")]: {
       width: "300px",
@@ -52,11 +46,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
 const Cart = () => {
-  const { cart, getCart, cartData, deleteProductFromCart,changeProductCount }  = useProducts();
-
+  const { cart, getCart, cartData, deleteProductFromCart, changeProductCount }  = useProducts();
 
   useEffect(() => {
     getCart();
@@ -106,7 +97,6 @@ const Cart = () => {
                                 style={{ width: "80px" }}
                               />
                             </TableCell>
-
                             <TableCell align="center">
                               {item.product.price}
                             </TableCell>
@@ -144,9 +134,7 @@ const Cart = () => {
                 </Paper>
               </Grid>
               <Grid item md={4} sm={12}>
-
-               <Paper elevation={6} className={classes.paper1}>
-
+              <Paper elevation={6} className={classes.paper1}>
                   <Typography
                     variant="h5"
                     align="left"
@@ -157,10 +145,9 @@ const Cart = () => {
                   <br />
                   <MyLink to="/order">
                     <Button
-                      style={{ width: "100%" }}
+                      style={{ width: "100%", backgroundColor: blueGrey[600]  }}
                       align="right"
                       variant="contained"
-                      color="primary"
                     >
                       ORDER
                     </Button>

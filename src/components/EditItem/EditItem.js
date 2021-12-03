@@ -7,13 +7,13 @@ import { blueGrey } from '@material-ui/core/colors';
 const EditItem = () => {
   const { productDetails, fetchOneProduct, editItem } = useProducts();
   console.log(productDetails);
+
   const [form, setForm] = useState({
     title: productDetails.title,
     image: productDetails.image,
     image2: productDetails.image2,
     image3: productDetails.image3,
     price: productDetails.price,
-    description: productDetails.description,
     notes: productDetails.notes,
     category: productDetails.category,
   });
@@ -31,7 +31,6 @@ const EditItem = () => {
       image2: productDetails.image2,
       image3: productDetails.image3,
       price: productDetails.price,
-      description: productDetails.description,
       notes: productDetails.notes,
       category: productDetails.category,
     });

@@ -11,16 +11,24 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     paddingTop: "30px",
     backgroundColor: "brown",
+    [theme.breakpoints.down('sm')]: {
+      display: 'none'
+    }
   },
   main: {
     backgroundColor: "brown",
   },
-});
+  text: {
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '12px'
+    }
+  }
+}));
 
 const Footer = () => {
   const classes = useStyles();
@@ -30,10 +38,6 @@ const Footer = () => {
   };
   return (
     <>
-      {/* <Typography variant="h5" align="center">
-        I love winter
-      </Typography> */}
-
       <div className={classes.main}>
         <BottomNavigation
           value={value}
@@ -68,6 +72,7 @@ const Footer = () => {
           component="p"
           variant="subtitle1"
           paddingTop="10px"
+          className={classes.text}
         >
           Winter Time <br /> HaHathon PROJECT <br />
           November 2021 @ll rights reserved

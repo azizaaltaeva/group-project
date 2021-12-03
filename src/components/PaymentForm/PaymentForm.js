@@ -31,6 +31,7 @@ const PaymentForm = () => {
     setForm(values);
   };
 
+
   const handleClick = (Transition) => () => {
     if (!form.number && !form.name && !form.expiry && !form.cvc) {
       alert("fill all blanks");
@@ -43,6 +44,10 @@ const PaymentForm = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  // const handleClosePage = () => {
+  //   navigate('/')
+  // }
 
     return (
         <>

@@ -10,8 +10,8 @@ import {
   GET_CART,
   ADD_TO_CART,
   SET_SEARCH_RESULTS,
-  ADD_AND_DELETE_IN_FAVS,
-  GET_ITEM,
+  ADD_AND_DELETE_IN_FAV,
+  GET_FAV,
 } from "../utils/constants";
 import {
   productsError,
@@ -26,7 +26,7 @@ import {
 } from "./actions/itemDetailsActions";
 import { useNavigate, useLocation } from "react-router";
 import { calcSubPrice, calcTotalPrice } from "../utils/calculations";
-import { checkItemInCart, checkItemInFavs } from "../utils/check-cart";
+import { checkItemInCart, checkItemInFav } from "../utils/check-cart";
 
 const productsContext = createContext();
 
@@ -46,10 +46,10 @@ const initialState = {
     ? JSON.parse(localStorage.getItem("cart")).decors.length
     : 0,
   cart: {},
-  favsData: JSON.parse(localStorage.getItem("favs"))
-    ? JSON.parse(localStorage.getItem("favs")).products.length
+  favData: JSON.parse(localStorage.getItem('fav'))
+    ? JSON.parse(localStorage.getItem('fav')).products.length
     : 0,
-  favs: {},
+  fav: {},
 };
 
 const reducer = (state, action) => {
@@ -116,19 +116,17 @@ const reducer = (state, action) => {
       };
     }
 
-    case ADD_AND_DELETE_IN_FAVS: {
+    case ADD_AND_DELETE_IN_FAV: 
       return {
-        ...state,
-        favsData: action.payload,
+        ...state, 
+        favData: action.payload
       };
-    }
-
-    case GET_ITEM: {
+    
+    case GET_FAV: 
       return {
-        ...state,
-        favs: action.payload,
+        ...state, 
+        fav: action.payload
       };
-    }
 
     default:
       return state;
@@ -220,7 +218,7 @@ const ItemsContext = ({ children }) => {
 
   const addToCart = (product) => {
     let cart = JSON.parse(localStorage.getItem("cart"));
-    if (!cart.length) {
+    if (!cart) {
       cart = {
         decors: [],
         totalPrice: 0,
@@ -269,42 +267,7 @@ const ItemsContext = ({ children }) => {
     });
   };
 
-  const addAndDeleteInFavs = (product) => {
-    let favs = JSON.parse(localStorage.getItem("favs"));
-    if (!favs) {
-      favs = {
-        products: [],
-      };
-    }
-    let newProduct = {
-      count: 1,
-      product: product,
-    };
-    const isProductInFavs = checkItemInFavs(favs.products, product.id);
-    if (isProductInFavs) {
-      favs.products = favs.products.filter((item) => item.product.id !== product.id);
-    } else {
-      favs.products.push(newProduct);
-    }
-
-    localStorage.setItem("favs", JSON.stringify(favs));
-
-    dispatch({
-      type: ADD_AND_DELETE_IN_FAVS,
-      payload: favs.products.length,
-    });
-  };
-
-  const getItem = () => {
-    let favsFromLS = JSON.parse(localStorage.getItem("favs"));
-    dispatch({
-      type: GET_ITEM,
-      payload: favsFromLS,
-    });
-  };
-
-
-
+  
 
   const changeProductCount = (newCount, id) => {
     const cart = JSON.parse(localStorage.getItem("cart"));
@@ -320,6 +283,40 @@ const ItemsContext = ({ children }) => {
     getCart();
   };
 
+  const addAndDeleteInFav = (product) => {
+    let fav = JSON.parse(localStorage.getItem('fav'))
+    if (!fav) {
+      fav = {
+        products: [],
+      }
+    }
+    let newProduct = {
+      count: 1,
+      product: product
+    };
+
+    const isItemInFav = checkItemInFav(fav.products, product.id);
+    if (isItemInFav) {
+      fav.products = fav.products.filter((item) => item.product.id !== product.id );
+    } else {
+      fav.products.push(newProduct);
+    }
+
+    localStorage.setItem('fav', JSON.stringify(fav));
+
+    dispatch({
+      type: ADD_AND_DELETE_IN_FAV,
+      payload: fav.products.length,
+    })
+  };
+
+  const getFav = () => {
+    let favFromLS = JSON.parse(localStorage.getItem('fav'))
+    dispatch({
+      type: GET_FAV,
+      payload: favFromLS
+    })
+  }
 
   const values = {
     products: state.products,
@@ -331,8 +328,6 @@ const ItemsContext = ({ children }) => {
     searchResults: state.searchResults,
     cart: state.cart,
     cartData: state.cartData,
-    favsData: state.favsData,
-    favs: state.favs,
     fetchProducts,
     fetchOneProduct,
     fetchSearchProducts,
@@ -343,14 +338,11 @@ const ItemsContext = ({ children }) => {
     addToCart,
     getCart,
     deleteProductFromCart,
-
-    searchResults: state.searchResults,
-    fetchSearchProducts,
     changeProductCount,
-
-    addAndDeleteInFavs,
-    getItem,
-
+    addAndDeleteInFav,
+    getFav,
+    favData: state.favData,
+    fav: state.fav,
   };
 
   return (

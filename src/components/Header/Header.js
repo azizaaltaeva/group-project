@@ -99,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   featuresPost: {
-    minHeight: "180px",
+    minHeight: "100px",
     position: "relative",
     color: theme.palette.common.white,
     // marginBottom: theme.spacing(1),
@@ -156,9 +156,8 @@ export default function Header() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [searchActive, setSearchActive] = useState(false);
-  const { fetchSearchProducts } = useProducts();
+  const { fetchSearchProducts, cartData } = useProducts();
   const navigate = useNavigate();
-  const { cartData } = useProducts();
   const { registerUser, user, logOut } = useAuth();
 
   const handleClickOpen = () => {

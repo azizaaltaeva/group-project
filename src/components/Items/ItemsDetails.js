@@ -72,7 +72,6 @@ const useStyles = makeStyles((theme) => ({
       width: '260px'
     }
   },
-
 }));
 
 const ItemsDetails = () => {

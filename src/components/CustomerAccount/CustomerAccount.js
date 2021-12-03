@@ -4,7 +4,8 @@ import { Button } from '@material-ui/core';
 import { blueGrey } from '@material-ui/core/colors';
 import React, { useEffect } from 'react'
 import { useAuth } from '../../contexts/AuthContext';
-import { useProducts } from '../../contexts/ItemsContext'
+import { useProducts } from '../../contexts/ItemsContext';
+import MyLink from '../../shared/MyLink';
 
 const useStyles = makeStyles((theme) => ({
   itemCategory: {
@@ -36,12 +37,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CustomerAccount = () => {
-  const { favs, getItem } = useProducts();
+  const { fav, getFav } = useProducts();
   const { user, registerUser } = useAuth()
   const classes = useStyles()
 
   useEffect(() => {
-    getItem()
+    getFav()
   }, [])
 
   return (
@@ -58,30 +59,32 @@ const CustomerAccount = () => {
               </Grid>
               <Grid item md={5} sm={8}>
                 <h2 className={classes.title}>Saved products</h2>
-              {favs && favs.products ? (
+              {fav && fav.products ? (
                 <Paper>
                       <table>
                         <tbody>
-                          {favs.products.map((item) => (
+                          {fav.products.map((item) => (
                             <tr>
-                              <td>
-                                <img src={item.product.image} style={{ width: '50px' }} />
-                              </td>
-                              <td>
-                                <p>{item.product.title}</p>
-                              </td>
-                              <td>
-                                <i className={classes.itemCategory}>{item.product.category}</i>
-                              </td>
-                              <td>
-                                <i>{item.product.price}</i>
-                              </td>
+                              <MyLink to={`/product/${item.product.id}`}>
+                                <td>
+                                  <img src={item.product.image} style={{ width: '50px' }} />
+                                </td>
+                                <td>
+                                  <p>{item.product.title}</p>
+                                </td>
+                                <td>
+                                  <i className={classes.itemCategory}>{item.product.category}</i>
+                                </td>
+                                <td>
+                                  <i>{item.product.price}</i>
+                                </td>
+                              </MyLink>
                             </tr>
-                            ))}
+                            ))} 
                         </tbody>
                       </table>
                     </Paper>
-              ) : null }
+              ) : null } 
               </Grid>
             </Grid>
         </>

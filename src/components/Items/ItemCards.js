@@ -18,7 +18,7 @@ import MyLink from "../../shared/MyLink";
 import { blueGrey } from "@material-ui/core/colors";
 import { useProducts } from "../../contexts/ItemsContext";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
-import { checkItemInFav, checkItemInFavs } from "../../utils/check-cart";
+import { checkItemInFav } from "../../utils/check-cart";
 
 const useStyles = makeStyles((theme) => ({
   media: {

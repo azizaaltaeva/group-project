@@ -203,6 +203,7 @@ const ItemsContext = ({ children }) => {
     const url = `${location.pathname}?${search.toString()}`;
     navigate(url);
   };
+  
   const fetchSearchProducts = async (value) => {
     try {
       if (!value) {

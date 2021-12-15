@@ -52,6 +52,7 @@ const Cart = () => {
   useEffect(() => {
     getCart();
   }, [cartData]);
+  
   const classes = useStyles();
   const handleCountChange = ({ value }, id) => {
     changeProductCount(value, id);
